@@ -87,13 +87,15 @@ class MenuController extends AdminBaseController
     {
         session('admin_menu_index', 'Menu/lists');
         $keyword = $this->request->param('keyword','','trim');
+
+        $where = array();
         if($keyword){
+            $where['name'] = array('like','%'.$keyword.'%');
+
         }
-        print_r($keyword);
-        $result = Db::name('AdminMenu')->order(["app" => "ASC", "controller" => "ASC", "action" => "ASC"])->select();
+        $result = Db::name('AdminMenu')->where($where)->order(["app" => "ASC", "controller" => "ASC", "action" => "ASC"])->select();
         $this->assign("menus", $result);
-        print_r($result);
-        exit;
+        $this->assign('keyword',$keyword);
         return $this->fetch();
     }
 
