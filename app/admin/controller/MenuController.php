@@ -96,6 +96,7 @@ class MenuController extends AdminBaseController
         $result = Db::name('AdminMenu')->where($where)->order(["app" => "ASC", "controller" => "ASC", "action" => "ASC"])->select();
         $this->assign("menus", $result);
         $this->assign('keyword',$keyword);
+        $this->assign('key','1');
         return $this->fetch();
     }
 
